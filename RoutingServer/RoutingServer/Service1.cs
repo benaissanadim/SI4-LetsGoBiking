@@ -16,8 +16,8 @@ namespace RoutingServer
                 //ok
                 // location = "tour eiffel france";
                 // destination = "musee du louvre france";
-                location = "polytech nice sophia france";
-                destination = "2255 route des dolines france";
+              //  location = "polytech nice sophia france";
+               // destination = "2255 route des dolines france";
                 Console.WriteLine("Finding path between {0} and {1} ...", location, destination);
                 Result result = new Result();
 

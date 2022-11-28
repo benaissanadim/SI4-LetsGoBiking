@@ -30,6 +30,8 @@ namespace RoutingServer
             Console.WriteLine("Service is host at " + DateTime.Now.ToString());
             Console.WriteLine("Host is running... Press <Enter> key to stop");
             Service1 service1 = new Service1();
+            Console.ReadLine();
+
 
         }
     }

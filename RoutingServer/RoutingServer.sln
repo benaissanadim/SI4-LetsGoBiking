@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoutingServer", "RoutingServer\RoutingServer.csproj", "{04AA80C6-904F-4861-AB88-B8BB10FE179B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{183C7E04-5242-4C8C-8881-3956255CF2FD} = {183C7E04-5242-4C8C-8881-3956255CF2FD}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProxyCacheServer", "ProxyCacheServer\ProxyCacheServer.csproj", "{183C7E04-5242-4C8C-8881-3956255CF2FD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04AA80C6-904F-4861-AB88-B8BB10FE179B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04AA80C6-904F-4861-AB88-B8BB10FE179B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04AA80C6-904F-4861-AB88-B8BB10FE179B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04AA80C6-904F-4861-AB88-B8BB10FE179B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{183C7E04-5242-4C8C-8881-3956255CF2FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{183C7E04-5242-4C8C-8881-3956255CF2FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{183C7E04-5242-4C8C-8881-3956255CF2FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{183C7E04-5242-4C8C-8881-3956255CF2FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B47DBBBD-F5ED-4435-A025-1B0C77FA7610}
+	EndGlobalSection
+EndGlobal

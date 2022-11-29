@@ -9,7 +9,7 @@ public class MainClient {
         IService1 proxyIntinary= intinary.getBasicHttpBindingIService1();
         Result result = proxyIntinary.getItinary("polytech nice sophia france", "2255 route des dolines france");
 
-         System.out.println(result.getMessage());
+        System.out.println(result.getMessage().getValue());
         System.out.println();
         double distanceTotale = 0;
         double dureeTotale = 0;

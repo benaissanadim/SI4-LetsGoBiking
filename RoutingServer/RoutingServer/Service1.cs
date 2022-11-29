@@ -11,8 +11,8 @@ namespace RoutingServer
     {
             public Result GetItinary(string location, string destination)
             {
-                // location = "Les Abattoirs toulouse france";
-                //  destination = "St - Martin - du - Touch toulouse france";
+                 location = "Les Abattoirs toulouse france";
+                  destination = "St - Martin - du - Touch toulouse france";
                 //ok
                 // location = "tour eiffel france";
                 // destination = "musee du louvre france";

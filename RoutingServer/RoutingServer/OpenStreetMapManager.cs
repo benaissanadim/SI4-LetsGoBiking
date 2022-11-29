@@ -15,12 +15,19 @@ namespace RoutingServer
 
         public static GeoCoordinate GetPosition(string address)
         {
-            query = "api_key=" + apiKey;
-            query = query + "&" + "text=" + address;
-            url = "https://api.openrouteservice.org/geocode/autocomplete";
-            response = OpenStreetMapApiCall(url, query).Result;
-            Response geoLocalisationDetails = JsonConvert.DeserializeObject<Response>(response);
-            return geoLocalisationDetails.getGeoCoord();
+            try
+            {
+                query = "api_key=" + apiKey;
+                query = query + "&" + "text=" + address;
+                url = "https://api.openrouteservice.org/geocode/autocomplete";
+                response = OpenStreetMapApiCall(url, query).Result;
+                Response geoLocalisationDetails = JsonConvert.DeserializeObject<Response>(response);
+                return geoLocalisationDetails.getGeoCoord();
+            }catch(Exception e)
+            {
+                return null;
+            }
+         
         }
 
         public static string GetCity(string address)

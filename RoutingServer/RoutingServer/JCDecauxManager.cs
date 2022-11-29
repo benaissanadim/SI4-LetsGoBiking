@@ -4,8 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Device.Location;
 using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
+using static RoutingServer.OpenStreetMapManager;
 
 namespace RoutingServer
 {
@@ -23,31 +22,16 @@ namespace RoutingServer
         }
         public static List<Station> getAllStationsByContract(string contract)
         {
-            ProxyCacheServiceClient client = new ProxyCacheServiceClient();
-            Station[] stations = client.getStations(contract);
-            return (stations.ToList());
-        }
-
-        public static Station getStation(int stationNumber, List<Station> allStations)
-        {
             try
             {
-                if (allStations == null || allStations.Count == 0) return null;
-                Station chosenStation = allStations[0];
-                foreach (Station item in allStations)
-                {
-                    if (item.number == stationNumber)
-                    {
-                        chosenStation = item;
-                        break;
-                    }
-                }
-                return chosenStation;
-            }
-            catch (Exception e)
+                ProxyCacheServiceClient client = new ProxyCacheServiceClient();
+                Station[] stations = client.getStations(contract);
+                return (stations.ToList());
+            }catch(Exception e)
             {
                 return null;
             }
+           
         }
 
         public static Station GetNearestStation(GeoCoordinate stationCoordinates, List<Station> stations, bool depart)
@@ -93,10 +77,34 @@ namespace RoutingServer
 
         public static Station GetNearestStation(GeoCoordinate coord, string cityName, bool depart)
         {
+
             try
             {
-                Station s = GetNearestStation(coord, getAllStationsByContract(cityName), depart);
-                return s;
+                List<Station> stations = getAllStationsByContract(cityName);
+
+                if (stations != null)
+                {
+                    return GetNearestStation(coord, getAllStationsByContract(cityName), depart);
+                }
+                Contract closestContract = null;
+                GeoCoordinate pos;
+                Double minDistance = double.MaxValue;
+                List<Contract> contracts = getAllContracts();
+
+                foreach (Contract item in contracts)
+                {
+
+                    pos = GetPosition(item.name);
+                    if (pos == null) continue;
+                    Double distanceToCandidate = coord.GetDistanceTo(pos);
+                    if (distanceToCandidate != 0 && distanceToCandidate < minDistance)
+                    {
+                        closestContract = item;
+                        minDistance = distanceToCandidate;
+                    }
+                }
+                return GetNearestStation(coord, getAllStationsByContract(closestContract.name), depart);
+
             }
             catch (Exception e)
             {

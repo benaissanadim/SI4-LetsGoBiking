@@ -6,9 +6,9 @@ namespace ProxyCacheServer
 {
     internal class GenericProxyCache<T> where T : class
     {
-        public DateTimeOffset dt_default = ObjectCache.InfiniteAbsoluteExpiration;
+        public DateTimeOffset dt_default = DateTimeOffset.Now.AddDays(1);
         Dictionary<string, T> dict = new Dictionary<string, T>();
-        DateTimeOffset expirationTime = DateTimeOffset.Now.AddMinutes(1);
+        DateTimeOffset expirationTime = DateTimeOffset.Now.AddDays(1);
 
 
         public T Get(string CacheItemName)
@@ -32,17 +32,21 @@ namespace ProxyCacheServer
         {
             ObjectCache cache = MemoryCache.Default;
             T fileContents = cache[CacheItemName] as T;
+            Console.WriteLine(CacheItemName);
             JCDecauxItem<T> item;
             if (fileContents == null)
             {
-                Console.WriteLine("updating cache");
+                Console.WriteLine("updating cache...");
                 CacheItemPolicy policy = new CacheItemPolicy();
                 policy.AbsoluteExpiration = dt;
 
-                //JCDecauxProxyManager jcdecauxTool = new JCDecauxProxyManager();
-
                 item = new JCDecauxItem<T>(CacheItemName);
                 cache.Add(CacheItemName, item.getItem(), policy);
+            }
+            else
+            {
+                Console.WriteLine("already in cache :D");
+
             }
             fileContents = cache[CacheItemName] as T;
             return (fileContents);

@@ -11,13 +11,13 @@ namespace RoutingServer
     {
             public Result GetItinary(string location, string destination)
             {
-                 location = "Les Abattoirs toulouse france";
-                  destination = "St - Martin - du - Touch toulouse france";
+                 //location = "Les Abattoirs toulouse france";
+                 // destination = "St - Martin - du - Touch toulouse france";
                 //ok
-                // location = "tour eiffel france";
-                // destination = "musee du louvre france";
-              //  location = "polytech nice sophia france";
-               // destination = "2255 route des dolines france";
+              //  location = "nice france";
+               // destination = "marseile france";
+                location = "nice";
+                destination = "seville";
                 Console.WriteLine("Finding path between {0} and {1} ...", location, destination);
                 Result result = new Result();
 

@@ -3,7 +3,17 @@
   <component name="issues">
     <option name="index">
       <map>
+        <entry key="/fragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/baeldung/soap/ws/client/generated/ArrayOfArrayOfdouble.java">
           <value>
             <set />
           </value>
@@ -13,7 +23,47 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/baeldung/soap/ws/client/generated/ArrayOfdouble.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/baeldung/soap/ws/client/generated/GeometryItinary.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/baeldung/soap/ws/client/generated/IService1.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/main/AddressPanel.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/main/Main.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/main/MainClient.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/main/RoutePainter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/main/Sample.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/main/Window.java">
           <value>
             <set />
           </value>
@@ -23,7 +73,52 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../../SI4/Mddleware/cookiefractory/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../SI4/Mddleware/cookiefractory/src/main/java/fr/unice/polytech/cookiefactory/components/CartHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../SI4/Mddleware/cookiefractory/src/main/java/fr/unice/polytech/cookiefactory/components/OrderManager.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../SI4/Mddleware/cookiefractory/src/main/java/fr/unice/polytech/cookiefactory/entities/account/Customer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../SI4/Mddleware/cookiefractory/src/main/java/fr/unice/polytech/cookiefactory/entities/order/OrderBulder.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../SI4/Mddleware/cookiefractory/src/main/java/fr/unice/polytech/cookiefactory/exceptions/EmptyCartException.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../SI4/Mddleware/cookiefractory/src/main/java/fr/unice/polytech/cookiefactory/interfaces/CartContentSearch.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../SI4/Mddleware/cookiefractory/src/main/java/fr/unice/polytech/cookiefactory/interfaces/CartModifier.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../../SI4/cookiefactory-22-23-h/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../SI4/cookiefactory-22-23-h/src/main/java/fr/unice/polytech/order/cart/ShoppingCart.java">
           <value>
             <set />
           </value>

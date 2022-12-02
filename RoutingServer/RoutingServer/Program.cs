@@ -5,6 +5,8 @@ using System.ServiceModel.Description;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using Apache.NMS.ActiveMQ;
+using Apache.NMS;
 
 namespace RoutingServer
 {
@@ -12,6 +14,8 @@ namespace RoutingServer
     {
         static void Main(String[] args)
         {
+
+    
 
             Uri httpUrl = new Uri("http://localhost:8090/MyService/getItenirary");
 
@@ -32,6 +36,7 @@ namespace RoutingServer
             Service1 service1 = new Service1();
             Console.WriteLine(service1.GetItinary(null,null).message);
 
+  
             Console.ReadLine();
 
 

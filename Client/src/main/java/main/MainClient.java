@@ -2,40 +2,52 @@ package main;
 
 import com.baeldung.soap.ws.client.generated.*;
 
-public class MainClient {
+import javax.jms.*;
+
+import org.apache.activemq.ActiveMQConnection;
+import org.apache.activemq.ActiveMQConnectionFactory;
+
+public class MainClient{
+
+    private static javax.jms.Connection connect = null;
+    private static javax.jms.Session receiveSession = null;
+    private static javax.jms.Queue queue = null;
+
+    private static String brokerUrl = ActiveMQConnection.DEFAULT_BROKER_URL;
 
     public static void main(String[] args) {
-        Service1 intinary =new Service1();
-        IService1 proxyIntinary= intinary.getBasicHttpBindingIService1();
-        Result result = proxyIntinary.getItinary("polytech nice sophia france", "2255 route des dolines france");
 
-        System.out.println(result.getMessage().getValue());
-        System.out.println();
-        double distanceTotale = 0;
-        double dureeTotale = 0;
+        try {    // Create a connection.
+            ConnectionFactory factory;
+            factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+            connect = factory.createConnection();
+            receiveSession = connect.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-        for(FeatureItinary itinary : result.getRoutes().getValue().getFeatureItinary()){
-            distanceTotale += itinary.getProperties().getValue().getSummary().getValue().getDistance();
-            dureeTotale += itinary.getProperties().getValue().getSummary().getValue().getDuration();
+            Destination destination = receiveSession.createQueue("ItineraryQueue");
 
-            for(Segment segment : itinary.getProperties().getValue().getSegments().getValue().getSegment()){
+            MessageConsumer consumer = receiveSession.createConsumer(destination);
 
-                System.out.println();
-                System.out.println("here are your steps ...");
-                System.out.println();
-                int i= 0 ;
-                for(Step step : segment.getSteps().getValue().getStep()){
-                    i++;
-                    System.out.println("step "+ i + "  => duration = " + step.getDuration() + "s & distance = " + step.getDistance()+"m");
-                    System.out.println("instruction => "+ step.getInstruction().getValue());
-                    System.out.println();
+            connect.start();
 
+            consumer.setMessageListener(new MessageListener() {
+                @Override
+                public void onMessage(Message message) {
+                    System.out.println("ok");
+                    try {
+                        if (message instanceof TextMessage) {
+                            TextMessage textMessage = (TextMessage) message;
+                            String text = textMessage.getText();
+                            System.out.println("recieved " + text);
+                        } else {
+                            System.out.println("received " + message);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-
-            }
+            });
+        } catch (JMSException e) {
+            e.printStackTrace();
         }
-        System.out.println("Distance de l'itineraire (en m) = "+ distanceTotale);
-        System.out.println("Durée de l'itineraire (en s) = "+ dureeTotale);
-
     }
 }

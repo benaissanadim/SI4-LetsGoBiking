@@ -59,13 +59,13 @@ namespace RoutingServer
                         if (item.totalStands.capacity - item.totalStands.availabilities.bikes <= 0)
                             continue;
                     }
+                  
+                    if (distanceToCandidate != 0 && distanceToCandidate < minDistance)
                     {
-                        if (distanceToCandidate != 0 && distanceToCandidate < minDistance)
-                        {
-                            closestStation = item;
-                            minDistance = distanceToCandidate;
-                        }
+                        closestStation = item;
+                        minDistance = distanceToCandidate;
                     }
+                    
                 }
                 return closestStation;
             }
@@ -75,17 +75,10 @@ namespace RoutingServer
             }
         }
 
-        public static Station GetNearestStation(GeoCoordinate coord, string cityName, bool depart)
+        public static Contract getNearestContract(GeoCoordinate coord)
         {
-
             try
             {
-                List<Station> stations = getAllStationsByContract(cityName);
-
-                if (stations != null)
-                {
-                    return GetNearestStation(coord, getAllStationsByContract(cityName), depart);
-                }
                 Contract closestContract = null;
                 GeoCoordinate pos;
                 Double minDistance = double.MaxValue;
@@ -103,6 +96,31 @@ namespace RoutingServer
                         minDistance = distanceToCandidate;
                     }
                 }
+                return closestContract;
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+            
+            
+        }
+
+        public static Station GetNearestStation(GeoCoordinate coord, string cityName, bool depart)
+        {
+
+            try
+            {
+                List<Station> stations = getAllStationsByContract(cityName);
+
+                if (stations != null)
+                {
+                    return GetNearestStation(coord, stations, depart);
+                }
+
+                Contract closestContract = getNearestContract(coord);
+
+
                 return GetNearestStation(coord, getAllStationsByContract(closestContract.name), depart);
 
             }

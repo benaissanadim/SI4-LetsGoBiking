@@ -3,6 +3,8 @@ using System.Device.Location;
 using static RoutingServer.OpenStreetMapManager;
 using static RoutingServer.JCDecauxManager;
 using RoutingServer.ServiceProxyCacheReference;
+using Apache.NMS.ActiveMQ;
+using Apache.NMS;
 
 namespace RoutingServer
 {
@@ -11,13 +13,14 @@ namespace RoutingServer
     {
             public Result GetItinary(string location, string destination)
             {
-                 //location = "Les Abattoirs toulouse france";
-                 // destination = "St - Martin - du - Touch toulouse france";
-                //ok
-              //  location = "nice france";
-               // destination = "marseile france";
-                location = "nice";
-                destination = "seville";
+                 
+                 location = "Les Abattoirs";
+                 destination = "St - Martin - du - Touch";
+                 //ok
+                //location = "polytech nice sophia";
+                //destination = "2255 route des dolines";
+                //location = "nice";
+               // destination = "seville";
                 Console.WriteLine("Finding path between {0} and {1} ...", location, destination);
                 Result result = new Result();
 
@@ -32,6 +35,8 @@ namespace RoutingServer
                     if (startCoordinate == null || endCoordinate == null)
                     {
                         result.message = "no result found sorry";
+                        sendToQueue(null);
+
                         return null;
                     }
 
@@ -43,6 +48,8 @@ namespace RoutingServer
                         result.message = "No stations found start => walking itinerary.";
                         Console.WriteLine("No stations found => walking itinerary.");
                         result.AddRoute(GetPath(startCoordinate, endCoordinate, "foot-walking"));
+                        sendToQueue(result);
+
                         return result;
                     }
 
@@ -57,6 +64,8 @@ namespace RoutingServer
                             result.message = "same station start and arrival => walking itinerary.";
                         Console.WriteLine("walking itinerary.");
                         result.AddRoute(GetPath(startCoordinate, endCoordinate, "foot-walking"));
+                        sendToQueue(result);
+
                         return result;
                     }
 
@@ -73,6 +82,8 @@ namespace RoutingServer
                         result.AddRoute(waltToStationStart);
                         result.AddRoute(ridingData);
                         result.AddRoute(waltFromStationEnd);
+                        sendToQueue(result);
+
                         return result;
                     }
                     else
@@ -81,17 +92,65 @@ namespace RoutingServer
                         Console.WriteLine("Bike is useless for this itinerary.");
                         Console.WriteLine("Returning walking itinerary.");
                         result.AddRoute(fullWalkData);
+                        sendToQueue(result);
+
                         return result;
                     }
+
+                    sendToQueue(result);
                     return result;
                 }
                 catch (Exception e)
                 {
                     result.message = e.Message;
                 }
+                sendToQueue(result);
 
                 return result;
+
             }
+
+            public static void sendToQueue(Result result)
+            {
+
+            // Create a Connection Factory.
+            Uri connecturi = new Uri("activemq:tcp://localhost:61616");
+            ConnectionFactory connectionFactory = new ConnectionFactory(connecturi);
+
+            // Create a single Connection from the Connection Factory.
+            IConnection connection = connectionFactory.CreateConnection();
+            connection.Start();
+
+            // Create a session from the Connection.
+            ISession session = connection.CreateSession();
+
+            // Use the session to target a queue.
+            IDestination destination = session.GetQueue("ItineraryQueue");
+
+            // Create a Producer targetting the selected queue.
+            IMessageProducer producer = session.CreateProducer(destination);
+
+            // You may configure everything to your needs, for instance:
+            producer.DeliveryMode = MsgDeliveryMode.NonPersistent;
+
+            // Finally, to send messages:
+           /* foreach(FeatureItinary itinary in result.routes){
+                foreach (Segment segment in itinary.properties)
+                {
+
+                }
+            }*/
+            ITextMessage message = session.CreateTextMessage(result.message);
+            producer.Send(message);
+
+            Console.WriteLine("Message sent, check ActiveMQ web interface to confirm.");
+            Console.ReadLine();
+
+            // Don't forget to close your session and connection when finished.
+            session.Close();
+            connection.Close();
+
+        }
 
 
             private bool CanUseBike(FeatureItinary start, FeatureItinary ride, FeatureItinary end, FeatureItinary full)

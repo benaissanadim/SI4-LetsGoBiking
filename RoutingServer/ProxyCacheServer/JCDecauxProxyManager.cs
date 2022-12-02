@@ -26,14 +26,12 @@ namespace ProxyCacheServer
             url = "https://api.jcdecaux.com/vls/v3/stations";
             query = "contract=" + contract + "&apiKey=" + apiKey;
             GenericProxyCache<List<Station>> genericProxyCache = new GenericProxyCache<List<Station>>();
-            List<Station> allStations = genericProxyCache.Get(url + "?" + query);
+            List<Station> allStations = genericProxyCache.Get(url + "?" + query, 3);
             if (allStations == null) return null;
-            if(allStations.Count > 120)
-                return (allStations.GetRange(0, 120));
+            if (allStations.Count > 120)
+                return (allStations.GetRange(0, 119));
             return (allStations);
         }
-
- 
 
     }
 

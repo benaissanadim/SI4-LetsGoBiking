@@ -14,13 +14,11 @@ namespace ProxyCacheServer
         public T Get(string CacheItemName)
         {
             return useCache(CacheItemName, dt_default);
-
         }
-        public T Get(string CacheItemName, double dt_seconds)
+        public T Get(string CacheItemName, double dt_minutes)
         {
-            DateTimeOffset dt = DateTime.Now.AddSeconds(dt_seconds); //In this case, the Expiration Time is "dt_default"
+            DateTimeOffset dt = DateTime.Now.AddMinutes(dt_minutes); //In this case, the Expiration Time is "dt_default"
             return useCache(CacheItemName, dt);
-
         }
         public T Get(string CacheItemName, DateTimeOffset dt)
         {

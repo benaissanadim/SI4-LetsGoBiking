@@ -32,6 +32,37 @@ namespace ProxyCacheServer
                 return (allStations.GetRange(0, 119));
             return (allStations);
         }
+        /*
+        public Contract getNearestContract(GeoCoordinate coord)
+        {
+            try
+            {
+                Contract closestContract = null;
+                GeoCoordinate pos;
+                Double minDistance = double.MaxValue;
+                List<Contract> contracts = getAllContracts();
+
+                foreach (Contract item in contracts)
+                {
+
+                    pos = GetPosition(item.name);
+                    if (pos == null) continue;
+                    Double distanceToCandidate = coord.GetDistanceTo(pos);
+                    if (distanceToCandidate != 0 && distanceToCandidate < minDistance)
+                    {
+                        closestContract = item;
+                        minDistance = distanceToCandidate;
+                    }
+                }
+                return closestContract;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+
+        }*/
 
     }
 

@@ -1,5 +1,8 @@
 package main;
 
+import com.baeldung.soap.ws.client.generated.IService1;
+import com.baeldung.soap.ws.client.generated.Result;
+import com.baeldung.soap.ws.client.generated.Service1;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
@@ -13,19 +16,11 @@ public class Main {
     private static Queue queue = null;
     public static void main(String[] args) {
         try {    // Create a connection.
-            System.out.println("ok");
 
             javax.jms.ConnectionFactory factory;
-            System.out.println("ok");
-
             factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
-            System.out.println("ok");
-
             connect = factory.createConnection();
-            System.out.println("ok");
-
             session = connect.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            System.out.println("ok");
 
 
             Destination destination = session.createQueue("ItineraryQueue");
@@ -40,7 +35,7 @@ public class Main {
                         if (message instanceof TextMessage) {
                             TextMessage textMessage = (TextMessage)message;
                             String text = textMessage.getText();
-                            System.out.println("recieved " + text);
+                            System.out.println(text);
                         } else {
                             System.out.println("received " + message);
                         }
@@ -49,6 +44,12 @@ public class Main {
                     }
                 }
             });
+
+            Service1 intinary =new Service1();
+            IService1 proxyIntinary= intinary.getBasicHttpBindingIService1();
+            Result result = proxyIntinary.getItinary("polytech nice sophia france", "2255 route des dolines france");
+            System.out.println(result.getMessage().getValue());
+
         } catch (JMSException e) {
             e.printStackTrace();
         }

@@ -14,8 +14,8 @@ namespace RoutingServer
             public Result GetItinary(string location, string destination)
             {
                  
-                 location = "Les Abattoirs";
-                 destination = "St - Martin - du - Touch";
+                // location = "Les Abattoirs";
+                // destination = "St - Martin - du - Touch";
                  //ok
                 //location = "polytech nice sophia";
                 //destination = "2255 route des dolines";
@@ -134,14 +134,24 @@ namespace RoutingServer
             producer.DeliveryMode = MsgDeliveryMode.NonPersistent;
 
             // Finally, to send messages:
-           /* foreach(FeatureItinary itinary in result.routes){
-                foreach (Segment segment in itinary.properties)
-                {
-
-                }
-            }*/
             ITextMessage message = session.CreateTextMessage(result.message);
             producer.Send(message);
+
+            foreach (FeatureItinary itinary in result.routes){
+                foreach (Segment segment in itinary.properties.segments)
+                {
+                    int i = 0;
+                    foreach(Step step in segment.steps)
+                    {
+                        i++;
+                        string instruction = "step "+i+" => "+ step.instruction + " for " + step.duration +"s for "+ step.distance+"m";
+                        ITextMessage messageInstruction = session.CreateTextMessage(instruction);
+                        producer.Send(messageInstruction);
+                    }
+
+                }
+            }
+            
 
             Console.WriteLine("Message sent, check ActiveMQ web interface to confirm.");
             Console.ReadLine();

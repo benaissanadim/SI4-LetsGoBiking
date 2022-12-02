@@ -40,7 +40,6 @@ public class ObjectFactory {
     private final static QName _Summary_QNAME = new QName("http://schemas.datacontract.org/2004/07/RoutingServer", "Summary");
     private final static QName _ArrayOfArrayOfdouble_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/Arrays", "ArrayOfArrayOfdouble");
     private final static QName _ArrayOfdouble_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/Arrays", "ArrayOfdouble");
-    private final static QName _GeoCoordinate_QNAME = new QName("http://schemas.datacontract.org/2004/07/System.Device.Location", "GeoCoordinate");
     private final static QName _AnyType_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "anyType");
     private final static QName _AnyURI_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "anyURI");
     private final static QName _Base64Binary_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "base64Binary");
@@ -65,8 +64,6 @@ public class ObjectFactory {
     private final static QName _GetItinaryLocation_QNAME = new QName("http://tempuri.org/", "location");
     private final static QName _GetItinaryDestination_QNAME = new QName("http://tempuri.org/", "destination");
     private final static QName _GetItinaryResponseGetItinaryResult_QNAME = new QName("http://tempuri.org/", "GetItinaryResult");
-    private final static QName _GetStepsCoor_QNAME = new QName("http://tempuri.org/", "coor");
-    private final static QName _GetStepsResponseGetStepsResult_QNAME = new QName("http://tempuri.org/", "GetStepsResult");
     private final static QName _StepInstruction_QNAME = new QName("http://schemas.datacontract.org/2004/07/RoutingServer", "instruction");
     private final static QName _SegmentSteps_QNAME = new QName("http://schemas.datacontract.org/2004/07/RoutingServer", "steps");
     private final static QName _PropertiesCountry_QNAME = new QName("http://schemas.datacontract.org/2004/07/RoutingServer", "country");
@@ -108,30 +105,6 @@ public class ObjectFactory {
      */
     public Result createResult() {
         return new Result();
-    }
-
-    /**
-     * Create an instance of {@link GetSteps }
-     * 
-     */
-    public GetSteps createGetSteps() {
-        return new GetSteps();
-    }
-
-    /**
-     * Create an instance of {@link GeoCoordinate }
-     * 
-     */
-    public GeoCoordinate createGeoCoordinate() {
-        return new GeoCoordinate();
-    }
-
-    /**
-     * Create an instance of {@link GetStepsResponse }
-     * 
-     */
-    public GetStepsResponse createGetStepsResponse() {
-        return new GetStepsResponse();
     }
 
     /**
@@ -376,19 +349,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://schemas.microsoft.com/2003/10/Serialization/Arrays", name = "ArrayOfdouble")
     public JAXBElement<ArrayOfdouble> createArrayOfdouble(ArrayOfdouble value) {
         return new JAXBElement<ArrayOfdouble>(_ArrayOfdouble_QNAME, ArrayOfdouble.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GeoCoordinate }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GeoCoordinate }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/System.Device.Location", name = "GeoCoordinate")
-    public JAXBElement<GeoCoordinate> createGeoCoordinate(GeoCoordinate value) {
-        return new JAXBElement<GeoCoordinate>(_GeoCoordinate_QNAME, GeoCoordinate.class, null, value);
     }
 
     /**
@@ -701,58 +661,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://tempuri.org/", name = "GetItinaryResult", scope = GetItinaryResponse.class)
     public JAXBElement<Result> createGetItinaryResponseGetItinaryResult(Result value) {
         return new JAXBElement<Result>(_GetItinaryResponseGetItinaryResult_QNAME, Result.class, GetItinaryResponse.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GeoCoordinate }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GeoCoordinate }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "coor", scope = GetSteps.class)
-    public JAXBElement<GeoCoordinate> createGetStepsCoor(GeoCoordinate value) {
-        return new JAXBElement<GeoCoordinate>(_GetStepsCoor_QNAME, GeoCoordinate.class, GetSteps.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "location", scope = GetSteps.class)
-    public JAXBElement<String> createGetStepsLocation(String value) {
-        return new JAXBElement<String>(_GetItinaryLocation_QNAME, String.class, GetSteps.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "destination", scope = GetSteps.class)
-    public JAXBElement<String> createGetStepsDestination(String value) {
-        return new JAXBElement<String>(_GetItinaryDestination_QNAME, String.class, GetSteps.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Result }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link Result }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "GetStepsResult", scope = GetStepsResponse.class)
-    public JAXBElement<Result> createGetStepsResponseGetStepsResult(Result value) {
-        return new JAXBElement<Result>(_GetStepsResponseGetStepsResult_QNAME, Result.class, GetStepsResponse.class, value);
     }
 
     /**

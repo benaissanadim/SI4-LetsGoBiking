@@ -40,24 +40,4 @@ public interface IService1 {
         @WebParam(name = "destination", targetNamespace = "http://tempuri.org/")
         String destination);
 
-    /**
-     * 
-     * @param coor
-     * @param destination
-     * @param location
-     * @return
-     *     returns com.baeldung.soap.ws.client.generated.Result
-     */
-    @WebMethod(operationName = "GetSteps", action = "http://tempuri.org/IService1/GetSteps")
-    @WebResult(name = "GetStepsResult", targetNamespace = "http://tempuri.org/")
-    @RequestWrapper(localName = "GetSteps", targetNamespace = "http://tempuri.org/", className = "com.baeldung.soap.ws.client.generated.GetSteps")
-    @ResponseWrapper(localName = "GetStepsResponse", targetNamespace = "http://tempuri.org/", className = "com.baeldung.soap.ws.client.generated.GetStepsResponse")
-    public Result getSteps(
-        @WebParam(name = "coor", targetNamespace = "http://tempuri.org/")
-        GeoCoordinate coor,
-        @WebParam(name = "location", targetNamespace = "http://tempuri.org/")
-        String location,
-        @WebParam(name = "destination", targetNamespace = "http://tempuri.org/")
-        String destination);
-
 }

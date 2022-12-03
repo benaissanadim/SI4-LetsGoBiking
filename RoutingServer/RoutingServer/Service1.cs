@@ -5,12 +5,16 @@ using static RoutingServer.JCDecauxManager;
 using RoutingServer.ServiceProxyCacheReference;
 using Apache.NMS.ActiveMQ;
 using Apache.NMS;
+using System.Collections.Generic;
 
 namespace RoutingServer
 {
     // REMARQUE : vous pouvez utiliser la commande Renommer du menu Refactoriser pour changer le nom de classe "Service1" à la fois dans le code et le fichier de configuration.
     public class Service1 : IService1
     {
+        public List<FeatureItinary> routeSteps;
+        public Station arrivalStation;
+        public Station departureStation;
             public Result GetItinary(string location, string destination)
             {
                  
@@ -36,7 +40,7 @@ namespace RoutingServer
                     {
                         result.message = "no result found sorry";
                         sendToQueue(null);
-
+                        this.routeSteps = null;
                         return null;
                     }
 
@@ -48,8 +52,8 @@ namespace RoutingServer
                         result.message = "No stations found start => walking itinerary.";
                         Console.WriteLine("No stations found => walking itinerary.");
                         result.AddRoute(GetPath(startCoordinate, endCoordinate, "foot-walking"));
-                        sendToQueue(result);
-
+                        this.routeSteps = result.routes;
+                        sendToQueue(this.routeSteps);
                         return result;
                     }
 
@@ -64,7 +68,8 @@ namespace RoutingServer
                             result.message = "same station start and arrival => walking itinerary.";
                         Console.WriteLine("walking itinerary.");
                         result.AddRoute(GetPath(startCoordinate, endCoordinate, "foot-walking"));
-                        sendToQueue(result);
+                        this.routeSteps = result.routes;
+                        sendToQueue(this.routeSteps);
 
                         return result;
                     }
@@ -82,8 +87,10 @@ namespace RoutingServer
                         result.AddRoute(waltToStationStart);
                         result.AddRoute(ridingData);
                         result.AddRoute(waltFromStationEnd);
-                        sendToQueue(result);
-
+                        this.routeSteps = result.routes;
+                        sendToQueue(this.routeSteps);
+                        this.arrivalStation = endStation;
+                        this.departureStation = startStation;
                         return result;
                     }
                     else
@@ -92,25 +99,30 @@ namespace RoutingServer
                         Console.WriteLine("Bike is useless for this itinerary.");
                         Console.WriteLine("Returning walking itinerary.");
                         result.AddRoute(fullWalkData);
-                        sendToQueue(result);
+                        this.routeSteps = result.routes;
+                        sendToQueue(this.routeSteps);
 
                         return result;
                     }
 
-                    sendToQueue(result);
-                    return result;
                 }
                 catch (Exception e)
                 {
                     result.message = e.Message;
                 }
-                sendToQueue(result);
 
-                return result;
+            return null;
 
             }
 
-            public static void sendToQueue(Result result)
+            public string updateSteps()
+            {
+
+            return null;
+
+            }
+
+            public static void sendToQueue(List<FeatureItinary> routes)
             {
 
             // Create a Connection Factory.
@@ -134,10 +146,10 @@ namespace RoutingServer
             producer.DeliveryMode = MsgDeliveryMode.NonPersistent;
 
             // Finally, to send messages:
-            ITextMessage message = session.CreateTextMessage(result.message);
-            producer.Send(message);
+           // ITextMessage message = session.CreateTextMessage(routes.message);
+           // producer.Send(message);
 
-            foreach (FeatureItinary itinary in result.routes){
+            foreach (FeatureItinary itinary in routes){
                 foreach (Segment segment in itinary.properties.segments)
                 {
                     int i = 0;
@@ -147,6 +159,7 @@ namespace RoutingServer
                         string instruction = "step "+i+" => "+ step.instruction + " for " + step.duration +"s for "+ step.distance+"m";
                         ITextMessage messageInstruction = session.CreateTextMessage(instruction);
                         producer.Send(messageInstruction);
+                        if (i == 10) return;
                     }
 
                 }

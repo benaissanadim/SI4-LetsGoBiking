@@ -47,7 +47,7 @@ public class Main {
 
             Service1 intinary =new Service1();
             IService1 proxyIntinary= intinary.getBasicHttpBindingIService1();
-            Result result = proxyIntinary.getItinary("polytech nice sophia france", "2255 route des dolines france");
+            Result result = proxyIntinary.getItinary("Marseille centre", "marseille port");
             System.out.println(result.getMessage().getValue());
 
         } catch (JMSException e) {

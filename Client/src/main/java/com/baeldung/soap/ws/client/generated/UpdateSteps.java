@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="routes" type="{http://schemas.datacontract.org/2004/07/RoutingServer}ArrayOfFeatureItinary" minOccurs="0"/&gt;
+ *         &lt;element name="routeSteps" type="{http://schemas.datacontract.org/2004/07/RoutingServer}ArrayOfFeatureItinary" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -30,36 +30,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "routes"
+    "routeSteps"
 })
 @XmlRootElement(name = "updateSteps", namespace = "http://tempuri.org/")
 public class UpdateSteps {
 
-    @XmlElementRef(name = "routes", namespace = "http://tempuri.org/", type = JAXBElement.class, required = false)
-    protected JAXBElement<ArrayOfFeatureItinary> routes;
+    @XmlElementRef(name = "routeSteps", namespace = "http://tempuri.org/", type = JAXBElement.class, required = false)
+    protected JAXBElement<ArrayOfFeatureItinary> routeSteps;
 
     /**
-     * Obtient la valeur de la propriété routes.
+     * Obtient la valeur de la propriété routeSteps.
      * 
      * @return
      *     possible object is
      *     {@link JAXBElement }{@code <}{@link ArrayOfFeatureItinary }{@code >}
      *     
      */
-    public JAXBElement<ArrayOfFeatureItinary> getRoutes() {
-        return routes;
+    public JAXBElement<ArrayOfFeatureItinary> getRouteSteps() {
+        return routeSteps;
     }
 
     /**
-     * Définit la valeur de la propriété routes.
+     * Définit la valeur de la propriété routeSteps.
      * 
      * @param value
      *     allowed object is
      *     {@link JAXBElement }{@code <}{@link ArrayOfFeatureItinary }{@code >}
      *     
      */
-    public void setRoutes(JAXBElement<ArrayOfFeatureItinary> value) {
-        this.routes = value;
+    public void setRouteSteps(JAXBElement<ArrayOfFeatureItinary> value) {
+        this.routeSteps = value;
     }
 
 }

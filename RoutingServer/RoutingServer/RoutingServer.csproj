@@ -72,7 +72,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Connected Services\ServiceProxyCacheReference\Reference.cs">
+    <Compile Include="Connected Services\ServiceReference1\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -86,38 +86,41 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Connected Services\ServiceProxyCacheReference\item.xsd">
+    <None Include="Connected Services\ServiceReference1\item.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ServiceProxyCacheReference\item1.xsd">
+    <None Include="Connected Services\ServiceReference1\item1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ServiceProxyCacheReference\item2.xsd">
+    <None Include="Connected Services\ServiceReference1\item2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ServiceProxyCacheReference\RoutingServer.ServiceProxyCacheReference.Contract.datasource">
+    <None Include="Connected Services\ServiceReference1\RoutingServer.ServiceReference1.Contract.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\ServiceProxyCacheReference\RoutingServer.ServiceProxyCacheReference.Station.datasource">
+    <None Include="Connected Services\ServiceReference1\RoutingServer.ServiceReference1.Station.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\ServiceProxyCacheReference\Service1.wsdl" />
+    <None Include="Connected Services\ServiceReference1\Service1.wsdl" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\ServiceProxyCacheReference\" />
+    <WCFMetadataStorage Include="Connected Services\ServiceReference1\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\ServiceProxyCacheReference\configuration91.svcinfo" />
+    <None Include="Connected Services\ServiceReference1\item.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\ServiceProxyCacheReference\configuration.svcinfo" />
+    <None Include="Connected Services\ServiceReference1\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\ServiceProxyCacheReference\Reference.svcmap">
+    <None Include="Connected Services\ServiceReference1\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceReference1\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

@@ -16,6 +16,9 @@ namespace RoutingServer
         [OperationContract]
         Result GetItinary(string location, string destination);
 
+        [OperationContract]
+        List<FeatureItinary> updateSteps(List<FeatureItinary> routeSteps);
+       
     }
 
     // Utilisez un contrat de données comme indiqué dans l'exemple ci-après pour ajouter les types composites aux opérations de service.

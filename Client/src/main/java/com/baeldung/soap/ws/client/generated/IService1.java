@@ -42,7 +42,7 @@ public interface IService1 {
 
     /**
      * 
-     * @param routes
+     * @param routeSteps
      * @return
      *     returns com.baeldung.soap.ws.client.generated.ArrayOfFeatureItinary
      */
@@ -51,7 +51,7 @@ public interface IService1 {
     @RequestWrapper(localName = "updateSteps", targetNamespace = "http://tempuri.org/", className = "com.baeldung.soap.ws.client.generated.UpdateSteps")
     @ResponseWrapper(localName = "updateStepsResponse", targetNamespace = "http://tempuri.org/", className = "com.baeldung.soap.ws.client.generated.UpdateStepsResponse")
     public ArrayOfFeatureItinary updateSteps(
-        @WebParam(name = "routes", targetNamespace = "http://tempuri.org/")
-        ArrayOfFeatureItinary routes);
+        @WebParam(name = "routeSteps", targetNamespace = "http://tempuri.org/")
+        ArrayOfFeatureItinary routeSteps);
 
 }

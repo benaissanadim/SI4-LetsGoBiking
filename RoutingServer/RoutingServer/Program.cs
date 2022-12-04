@@ -15,7 +15,6 @@ namespace RoutingServer
         static void Main(String[] args)
         {
 
-    
 
             Uri httpUrl = new Uri("http://localhost:8090/MyService/getItenirary");
 
@@ -34,9 +33,21 @@ namespace RoutingServer
             Console.WriteLine("Service is host at " + DateTime.Now.ToString());
             Console.WriteLine("Host is running... Press <Enter> key to stop");
             Service1 service1 = new Service1();
-            //Console.WriteLine(service1.GetItinary(null,null).message);
+           /* Console.WriteLine(service1.GetItinary("Marseille centre", "marseille port").message);
+            Console.ReadLine();
 
-  
+            service1.updateSteps();
+
+            Console.ReadLine();
+
+            service1.updateSteps();
+
+            Console.ReadLine();
+
+            service1.updateSteps();*/
+
+
+
             Console.ReadLine();
 
 

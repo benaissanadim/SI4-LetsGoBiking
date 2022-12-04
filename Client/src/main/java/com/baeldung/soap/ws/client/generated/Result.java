@@ -18,6 +18,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
+ *         &lt;element name="arrivalStation" type="{http://schemas.datacontract.org/2004/07/ProxyCacheServer}Station" minOccurs="0"/&gt;
+ *         &lt;element name="departureStation" type="{http://schemas.datacontract.org/2004/07/ProxyCacheServer}Station" minOccurs="0"/&gt;
  *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="routes" type="{http://schemas.datacontract.org/2004/07/RoutingServer}ArrayOfFeatureItinary" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
@@ -30,15 +32,69 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Result", propOrder = {
+    "arrivalStation",
+    "departureStation",
     "message",
     "routes"
 })
 public class Result {
 
+    @XmlElementRef(name = "arrivalStation", namespace = "http://schemas.datacontract.org/2004/07/RoutingServer", type = JAXBElement.class, required = false)
+    protected JAXBElement<Station> arrivalStation;
+    @XmlElementRef(name = "departureStation", namespace = "http://schemas.datacontract.org/2004/07/RoutingServer", type = JAXBElement.class, required = false)
+    protected JAXBElement<Station> departureStation;
     @XmlElementRef(name = "message", namespace = "http://schemas.datacontract.org/2004/07/RoutingServer", type = JAXBElement.class, required = false)
     protected JAXBElement<String> message;
     @XmlElementRef(name = "routes", namespace = "http://schemas.datacontract.org/2004/07/RoutingServer", type = JAXBElement.class, required = false)
     protected JAXBElement<ArrayOfFeatureItinary> routes;
+
+    /**
+     * Obtient la valeur de la propriété arrivalStation.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link Station }{@code >}
+     *     
+     */
+    public JAXBElement<Station> getArrivalStation() {
+        return arrivalStation;
+    }
+
+    /**
+     * Définit la valeur de la propriété arrivalStation.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link Station }{@code >}
+     *     
+     */
+    public void setArrivalStation(JAXBElement<Station> value) {
+        this.arrivalStation = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété departureStation.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link Station }{@code >}
+     *     
+     */
+    public JAXBElement<Station> getDepartureStation() {
+        return departureStation;
+    }
+
+    /**
+     * Définit la valeur de la propriété departureStation.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link Station }{@code >}
+     *     
+     */
+    public void setDepartureStation(JAXBElement<Station> value) {
+        this.departureStation = value;
+    }
 
     /**
      * Obtient la valeur de la propriété message.

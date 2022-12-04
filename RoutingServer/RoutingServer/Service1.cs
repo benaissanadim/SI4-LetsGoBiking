@@ -6,6 +6,7 @@ using RoutingServer.ServiceProxyCacheReference;
 using Apache.NMS.ActiveMQ;
 using Apache.NMS;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace RoutingServer
 {
@@ -13,8 +14,7 @@ namespace RoutingServer
     public class Service1 : IService1
     {
         public List<FeatureItinary> routeSteps;
-        public Station arrivalStation;
-        public Station departureStation;
+
             public Result GetItinary(string location, string destination)
             {
                  
@@ -39,9 +39,8 @@ namespace RoutingServer
                     if (startCoordinate == null || endCoordinate == null)
                     {
                         result.message = "no result found sorry";
-                        sendToQueue(null);
-                        this.routeSteps = null;
-                        return null;
+                        //return SendToQueue(result.routes);
+                      
                     }
 
                     Console.WriteLine("searching for bike stations...");
@@ -52,10 +51,11 @@ namespace RoutingServer
                         result.message = "No stations found start => walking itinerary.";
                         Console.WriteLine("No stations found => walking itinerary.");
                         result.AddRoute(GetPath(startCoordinate, endCoordinate, "foot-walking"));
-                        this.routeSteps = result.routes;
-                        sendToQueue(this.routeSteps);
-                        return result;
-                    }
+                    List<FeatureItinary> r = SendToQueue(result.routes);
+                    result.routes = r;
+
+                    return result;
+                }
 
                     Station endStation = GetNearestStation(endCoordinate, arrivalCity, false);
                     if (endStation is null || startStation.Equals(endStation))
@@ -69,9 +69,18 @@ namespace RoutingServer
                         Console.WriteLine("walking itinerary.");
                         result.AddRoute(GetPath(startCoordinate, endCoordinate, "foot-walking"));
                         this.routeSteps = result.routes;
-                        sendToQueue(this.routeSteps);
+                    if(routeSteps == null)
+                    {
+                        Console.WriteLine("null au debut");
+                    }
+                    else
+                    {
+                        Console.WriteLine("not null");
+                    }
+                        List<FeatureItinary> r = SendToQueue(result.routes);
+                    result.routes = r;
 
-                        return result;
+                    return result;
                     }
 
                     FeatureItinary ridingData = GetPath(toGeoCoordinate(startStation.position), toGeoCoordinate(endStation.position), "cycling-regular");
@@ -88,21 +97,30 @@ namespace RoutingServer
                         result.AddRoute(ridingData);
                         result.AddRoute(waltFromStationEnd);
                         this.routeSteps = result.routes;
-                        sendToQueue(this.routeSteps);
-                        this.arrivalStation = endStation;
-                        this.departureStation = startStation;
-                        return result;
+                           if(this.routeSteps == null)
+                    {
+                        Console.WriteLine("null des le debut");
                     }
+
+                   // SendToQueue(result.routes);
+                    result.arrivalStation = endStation;
+                        result.departureStation = startStation;
+                    List<FeatureItinary> r = SendToQueue(result.routes);
+                    result.routes = r;
+
+                    return result;
+                }
                     else
                     {
                         result.message = "Bike is useless for this itinerary.";
                         Console.WriteLine("Bike is useless for this itinerary.");
                         Console.WriteLine("Returning walking itinerary.");
                         result.AddRoute(fullWalkData);
-                        this.routeSteps = result.routes;
-                        sendToQueue(this.routeSteps);
+                    List<FeatureItinary> r = SendToQueue(result.routes);
+                    result.routes = r;
 
-                        return result;
+                    return result;
+
                     }
 
                 }
@@ -115,14 +133,20 @@ namespace RoutingServer
 
             }
 
-            public string updateSteps()
+            public List<FeatureItinary> updateSteps(List<FeatureItinary> routeSteps) {
+            if (this.routeSteps == null)
             {
-
-            return null;
+                Console.WriteLine("null");
+            }
+            else
+            {
+                Console.WriteLine("not null");
+            }
+            return SendToQueue (routeSteps);
 
             }
 
-            public static void sendToQueue(List<FeatureItinary> routes)
+            public List<FeatureItinary> SendToQueue(List<FeatureItinary> routes)
             {
 
             // Create a Connection Factory.
@@ -149,6 +173,9 @@ namespace RoutingServer
            // ITextMessage message = session.CreateTextMessage(routes.message);
            // producer.Send(message);
 
+            int k=0;
+
+
             foreach (FeatureItinary itinary in routes){
                 foreach (Segment segment in itinary.properties.segments)
                 {
@@ -157,21 +184,87 @@ namespace RoutingServer
                     {
                         i++;
                         string instruction = "step "+i+" => "+ step.instruction + " for " + step.duration +"s for "+ step.distance+"m";
+                        Console.WriteLine(instruction);
                         ITextMessage messageInstruction = session.CreateTextMessage(instruction);
                         producer.Send(messageInstruction);
-                        if (i == 10) return;
+                        if (i == 10)
+                        {
+                            k = 1;
+                            break;
+                        }
                     }
 
                 }
+                k = 2;
+                
+                break;
             }
-            
+
+
+            Console.WriteLine("ok");
+            List<FeatureItinary> routeNew = new List<FeatureItinary>();
+            if (k == 1)
+            {
+                Console.WriteLine("ok error");
+
+                routes[0].properties.segments[0].steps
+               = routes[0].properties.segments[0].steps.GetRange(10, routes[0].properties.segments[0].steps.Count);
+                routes[0].geometry.coordinates
+              = routes[0].geometry.coordinates.GetRange(10, routes[0].geometry.coordinates.Count);
+
+                return routes;
+            }
+           
+            if (k == 2)
+            {
+                Console.WriteLine("ok2");
+
+                if (routes.Count == 3 )
+                {
+                    Console.WriteLine("ok3");
+
+                    string instruction = "route 1 finished";
+                    ITextMessage messageInstruction = session.CreateTextMessage(instruction);
+                    Console.WriteLine(instruction);
+
+                    producer.Send(messageInstruction);
+                    routeNew.Add(routes[1]);
+                    routeNew.Add(routes[2]);
+                    return routeNew;
+                }
+                else if (routes.Count == 2)
+                {
+                    Console.WriteLine("ok4");
+
+                    string instruction = "route 2 biking finished";
+                    ITextMessage messageInstruction = session.CreateTextMessage(instruction);
+                    Console.WriteLine(instruction);
+                    producer.Send(messageInstruction);
+                    routeNew.Add(routes[1]);
+                    return routeNew;
+
+                }
+                else if (routes.Count == 1)
+                {
+                    Console.WriteLine("ok4");
+
+                    string instruction = "finished!";
+
+                    ITextMessage messageInstruction = session.CreateTextMessage(instruction);
+                    Console.WriteLine(instruction);
+                    producer.Send(messageInstruction);
+                    return null;
+
+                }
+
+            }
 
             Console.WriteLine("Message sent, check ActiveMQ web interface to confirm.");
-            Console.ReadLine();
 
             // Don't forget to close your session and connection when finished.
             session.Close();
             connection.Close();
+            return null;
 
         }
 

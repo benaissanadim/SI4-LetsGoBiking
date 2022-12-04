@@ -40,4 +40,18 @@ public interface IService1 {
         @WebParam(name = "destination", targetNamespace = "http://tempuri.org/")
         String destination);
 
+    /**
+     * 
+     * @param routes
+     * @return
+     *     returns com.baeldung.soap.ws.client.generated.ArrayOfFeatureItinary
+     */
+    @WebMethod(action = "http://tempuri.org/IService1/updateSteps")
+    @WebResult(name = "updateStepsResult", targetNamespace = "http://tempuri.org/")
+    @RequestWrapper(localName = "updateSteps", targetNamespace = "http://tempuri.org/", className = "com.baeldung.soap.ws.client.generated.UpdateSteps")
+    @ResponseWrapper(localName = "updateStepsResponse", targetNamespace = "http://tempuri.org/", className = "com.baeldung.soap.ws.client.generated.UpdateStepsResponse")
+    public ArrayOfFeatureItinary updateSteps(
+        @WebParam(name = "routes", targetNamespace = "http://tempuri.org/")
+        ArrayOfFeatureItinary routes);
+
 }

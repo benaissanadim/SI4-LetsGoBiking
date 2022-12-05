@@ -31,24 +31,37 @@ public class Maps
 {
    public static void init(Result result){
 
-       Set<Waypoint> waypoints = new HashSet<>();
+       Set<Waypoint> waypointsFoot = new HashSet<>();
        List<GeoPosition> track = new ArrayList<>();
+       List<GeoPosition> track1 = new ArrayList<>();
+       List<GeoPosition> track2 = new ArrayList<>();
+       List<GeoPosition> track3 = new ArrayList<>();
+
        int i=0;
        GeoPosition pos = null;
+       int nb =0;
        for(FeatureItinary itinary : result.getRoutes().getValue().getFeatureItinary()){
+           nb++;
            for(ArrayOfdouble segment : itinary.getGeometry().getValue().getCoordinates().getValue().getArrayOfdouble()){
 
                pos = new GeoPosition(segment.getDouble().get(1), segment.getDouble().get(0));
                if(i==0){
-                   waypoints.add(new DefaultWaypoint(pos));
+                   waypointsFoot.add(new DefaultWaypoint(pos));
+               }
+               if(nb==1){
+                   track1.add(pos);
+               }
+               else if(nb==2){
+                   track2.add(pos);
+               }else if(nb==3){
+                   track3.add(pos);
                }
                track.add(pos);
                i++;
            }
-
        }
 
-       waypoints.add(new DefaultWaypoint(pos));
+       waypointsFoot.add(new DefaultWaypoint(pos));
 
        JXMapViewer mapViewer = new JXMapViewer();
 
@@ -64,18 +77,25 @@ public class Maps
        DefaultTileFactory tileFactory = new DefaultTileFactory(info);
        mapViewer.setTileFactory(tileFactory);
 
-       RoutePainter routePainter = new RoutePainter(track);
+       RoutePainter routePainter1 = new RoutePainter(track1);
+       RouterPainterBike routePainter2 = new RouterPainterBike(track2);
+       RoutePainter routePainter3 = new RoutePainter(track3);
+
 
        // Set the focus
-       mapViewer.zoomToBestFit(new HashSet<GeoPosition>(track), 0.7);
+       mapViewer.zoomToBestFit(new HashSet<GeoPosition>(track), 0.86);
 
        // Create a waypoint painter that takes all the waypoints
        WaypointPainter<Waypoint> waypointPainter = new WaypointPainter<Waypoint>();
-       waypointPainter.setWaypoints(waypoints);
+       waypointPainter.setWaypoints(waypointsFoot);
+
+
 
        // Create a compound painter that uses both the route-painter and the waypoint-painter
        List<Painter<JXMapViewer>> painters = new ArrayList<Painter<JXMapViewer>>();
-       painters.add(routePainter);
+       painters.add(routePainter1);
+       painters.add(routePainter2);
+       painters.add(routePainter3);
        painters.add(waypointPainter);
 
        CompoundPainter<JXMapViewer> painter = new CompoundPainter<JXMapViewer>(painters);

@@ -64,9 +64,8 @@ public class ObjectFactory {
     private final static QName _GetItinaryLocation_QNAME = new QName("http://tempuri.org/", "location");
     private final static QName _GetItinaryDestination_QNAME = new QName("http://tempuri.org/", "destination");
     private final static QName _GetItinaryResponseGetItinaryResult_QNAME = new QName("http://tempuri.org/", "GetItinaryResult");
-    private final static QName _UpdateStepsRouteSteps_QNAME = new QName("http://tempuri.org/", "routeSteps");
-    private final static QName _UpdateStepsResponseUpdateStepsResult_QNAME = new QName("http://tempuri.org/", "updateStepsResult");
     private final static QName _StepInstruction_QNAME = new QName("http://schemas.datacontract.org/2004/07/RoutingServer", "instruction");
+    private final static QName _StepName_QNAME = new QName("http://schemas.datacontract.org/2004/07/RoutingServer", "name");
     private final static QName _SegmentSteps_QNAME = new QName("http://schemas.datacontract.org/2004/07/RoutingServer", "steps");
     private final static QName _PropertiesCountry_QNAME = new QName("http://schemas.datacontract.org/2004/07/RoutingServer", "country");
     private final static QName _PropertiesLocality_QNAME = new QName("http://schemas.datacontract.org/2004/07/RoutingServer", "locality");
@@ -118,19 +117,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ArrayOfFeatureItinary }
-     * 
-     */
-    public ArrayOfFeatureItinary createArrayOfFeatureItinary() {
-        return new ArrayOfFeatureItinary();
-    }
-
-    /**
      * Create an instance of {@link UpdateStepsResponse }
      * 
      */
     public UpdateStepsResponse createUpdateStepsResponse() {
         return new UpdateStepsResponse();
+    }
+
+    /**
+     * Create an instance of {@link ArrayOfFeatureItinary }
+     * 
+     */
+    public ArrayOfFeatureItinary createArrayOfFeatureItinary() {
+        return new ArrayOfFeatureItinary();
     }
 
     /**
@@ -682,32 +681,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ArrayOfFeatureItinary }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link ArrayOfFeatureItinary }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "routeSteps", scope = UpdateSteps.class)
-    public JAXBElement<ArrayOfFeatureItinary> createUpdateStepsRouteSteps(ArrayOfFeatureItinary value) {
-        return new JAXBElement<ArrayOfFeatureItinary>(_UpdateStepsRouteSteps_QNAME, ArrayOfFeatureItinary.class, UpdateSteps.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ArrayOfFeatureItinary }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link ArrayOfFeatureItinary }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "updateStepsResult", scope = UpdateStepsResponse.class)
-    public JAXBElement<ArrayOfFeatureItinary> createUpdateStepsResponseUpdateStepsResult(ArrayOfFeatureItinary value) {
-        return new JAXBElement<ArrayOfFeatureItinary>(_UpdateStepsResponseUpdateStepsResult_QNAME, ArrayOfFeatureItinary.class, UpdateStepsResponse.class, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      * 
      * @param value
@@ -718,6 +691,19 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/RoutingServer", name = "instruction", scope = Step.class)
     public JAXBElement<String> createStepInstruction(String value) {
         return new JAXBElement<String>(_StepInstruction_QNAME, String.class, Step.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/RoutingServer", name = "name", scope = Step.class)
+    public JAXBElement<String> createStepName(String value) {
+        return new JAXBElement<String>(_StepName_QNAME, String.class, Step.class, value);
     }
 
     /**

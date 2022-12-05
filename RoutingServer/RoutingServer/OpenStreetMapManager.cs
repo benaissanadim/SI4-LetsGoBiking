@@ -13,6 +13,23 @@ namespace RoutingServer
         static string apiKey = "5b3ce3597851110001cf624869e78fe2819549ceacb6afe9ff09fcdb";
         static string query, url, response;
 
+        public static (GeoCoordinate, String) GetPositionCity(string address)
+        {
+            try
+            {
+                query = "api_key=" + apiKey;
+                query = query + "&" + "text=" + address;
+                url = "https://api.openrouteservice.org/geocode/autocomplete";
+                response = OpenStreetMapApiCall(url, query).Result;
+                Response geoLocalisationDetails = JsonConvert.DeserializeObject<Response>(response);
+                return (geoLocalisationDetails.getGeoCoord(), geoLocalisationDetails.getCity());
+            }catch(Exception e)
+            {
+                return (null,null);
+            }
+         
+        }
+
         public static GeoCoordinate GetPosition(string address)
         {
             try
@@ -22,13 +39,15 @@ namespace RoutingServer
                 url = "https://api.openrouteservice.org/geocode/autocomplete";
                 response = OpenStreetMapApiCall(url, query).Result;
                 Response geoLocalisationDetails = JsonConvert.DeserializeObject<Response>(response);
-                return geoLocalisationDetails.getGeoCoord();
-            }catch(Exception e)
-            {
-                return null;
+                return (geoLocalisationDetails.getGeoCoord());
             }
-         
+            catch (Exception e)
+            {
+                return (null);
+            }
+
         }
+
 
         public static string GetCity(string address)
         {

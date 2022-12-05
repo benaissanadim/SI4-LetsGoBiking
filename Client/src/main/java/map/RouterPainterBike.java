@@ -14,13 +14,17 @@ import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.viewer.GeoPosition;
 import org.jxmapviewer.painter.Painter;
 
-/**
- * Paints a route
- * @author Martin Steiger
- */
-public class RoutePainter implements Painter<JXMapViewer>
-{
-    private Color color = Color.BLACK;
+
+import org.jxmapviewer.JXMapViewer;
+import org.jxmapviewer.painter.Painter;
+import org.jxmapviewer.viewer.GeoPosition;
+
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+
+public class RouterPainterBike implements Painter<JXMapViewer> {
+    private Color color = Color.RED;
     private boolean antiAlias = true;
 
     private List<GeoPosition> track;
@@ -28,7 +32,7 @@ public class RoutePainter implements Painter<JXMapViewer>
     /**
      * @param track the track
      */
-    public RoutePainter(List<GeoPosition> track)
+    public RouterPainterBike(List<GeoPosition> track)
     {
         // copy the list so that changes in the
         // original list do not have an effect here

@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="distance" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/&gt;
  *         &lt;element name="duration" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/&gt;
  *         &lt;element name="instruction" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -33,7 +34,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "Step", propOrder = {
     "distance",
     "duration",
-    "instruction"
+    "instruction",
+    "name"
 })
 public class Step {
 
@@ -41,6 +43,8 @@ public class Step {
     protected Double duration;
     @XmlElementRef(name = "instruction", namespace = "http://schemas.datacontract.org/2004/07/RoutingServer", type = JAXBElement.class, required = false)
     protected JAXBElement<String> instruction;
+    @XmlElementRef(name = "name", namespace = "http://schemas.datacontract.org/2004/07/RoutingServer", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> name;
 
     /**
      * Obtient la valeur de la propriété distance.
@@ -112,6 +116,30 @@ public class Step {
      */
     public void setInstruction(JAXBElement<String> value) {
         this.instruction = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété name.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public JAXBElement<String> getName() {
+        return name;
+    }
+
+    /**
+     * Définit la valeur de la propriété name.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setName(JAXBElement<String> value) {
+        this.name = value;
     }
 
 }

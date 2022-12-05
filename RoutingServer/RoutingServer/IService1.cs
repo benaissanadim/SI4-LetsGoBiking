@@ -17,7 +17,7 @@ namespace RoutingServer
         Result GetItinary(string location, string destination);
 
         [OperationContract]
-        List<FeatureItinary> updateSteps(List<FeatureItinary> routeSteps);
+        bool updateSteps();
        
     }
 
@@ -121,6 +121,9 @@ namespace RoutingServer
         public double duration { get; set; }
         [DataMember]
         public string instruction { get; set; }
+        [DataMember]
+        public string name { get; set; }
+
 
     }
 

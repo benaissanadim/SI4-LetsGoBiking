@@ -17,24 +17,21 @@ public class Main {
 
             Service1 intinary =new Service1();
             IService1 proxyIntinary= intinary.getBasicHttpBindingIService1();
-            Result result = proxyIntinary.getItinary("polytech nice sophia", "2255 route des dolines");
+            Result result = proxyIntinary.getItinary("marseille port", "marseille centre");
 
-            Maps.init(result);
+          Maps.init(result);
 
-           ArrayOfFeatureItinary array = result.getRoutes().getValue();
-            while(array != null){
+           boolean verif = true;
+            while(verif){
                 try{
-                    sleep(2000);
+                    sleep(1300);
                     System.out.println("Enter DONE for next steps ");
                     sc.next();
-
                     System.out.println();
-
-                    array = proxyIntinary.updateSteps(array);
+                    verif = proxyIntinary.updateSteps();
                 }catch (Exception e){
                     System.out.println("ok");
                 }
             }
-
     }
 }

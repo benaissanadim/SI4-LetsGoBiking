@@ -42,16 +42,13 @@ public interface IService1 {
 
     /**
      * 
-     * @param routeSteps
      * @return
-     *     returns com.baeldung.soap.ws.client.generated.ArrayOfFeatureItinary
+     *     returns java.lang.Boolean
      */
     @WebMethod(action = "http://tempuri.org/IService1/updateSteps")
     @WebResult(name = "updateStepsResult", targetNamespace = "http://tempuri.org/")
     @RequestWrapper(localName = "updateSteps", targetNamespace = "http://tempuri.org/", className = "com.baeldung.soap.ws.client.generated.UpdateSteps")
     @ResponseWrapper(localName = "updateStepsResponse", targetNamespace = "http://tempuri.org/", className = "com.baeldung.soap.ws.client.generated.UpdateStepsResponse")
-    public ArrayOfFeatureItinary updateSteps(
-        @WebParam(name = "routeSteps", targetNamespace = "http://tempuri.org/")
-        ArrayOfFeatureItinary routeSteps);
+    public Boolean updateSteps();
 
 }

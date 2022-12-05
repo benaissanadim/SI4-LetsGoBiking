@@ -4,6 +4,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
 
+import static java.lang.System.exit;
 import static java.lang.Thread.sleep;
 
 public class ConsumerActiveMQ {
@@ -29,14 +30,19 @@ public class ConsumerActiveMQ {
             consumer.setMessageListener(new MessageListener() {
                 @Override public void onMessage(Message message) {
                     try {
-                        if (message instanceof TextMessage) {
-                            TextMessage textMessage = (TextMessage)message;
+                        if (message instanceof TextMessage textMessage) {
                             String text = textMessage.getText();
-                            if(text.equals("finished!")){
+                            if(text.equals("Finished!")){
                                 System.out.println();
                                 System.out.println("CONGRATS ARRIVED !");
-                                //  exit(1);
+                               // exit(1);
                             }
+                            if(text.equals("Another request Client!")){
+                                System.out.println();
+                                System.out.println(text);
+                                exit(0);
+                            }
+
                             System.out.println(text);
 
                         } else {

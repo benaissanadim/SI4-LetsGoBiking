@@ -1,5 +1,8 @@
 # LetsGoBiking
 
+![image](https://user-images.githubusercontent.com/90777897/206019911-1f4eb0c4-98fe-4159-832d-8cf7e39e8c2c.png)
+
+
 Lancer le projet : 
 
 - Lancer ActiveMQ sur votre console.

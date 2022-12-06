@@ -93,6 +93,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/main/Sample2.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/main/SelectionAdapter.java">
           <value>
             <set />
@@ -153,6 +158,36 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/map/User.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/map/UserGUI.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/map/UserInput.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/map/UserUI.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/map/uo.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/ui/UserUI.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../../SI4/Mddleware/cookiefactory/src/main/java/fr/unice/polytech/cookiefactory/repositories/CustomerRepository.java">
           <value>
             <set />
@@ -209,6 +244,26 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../../../biking2.0/LetsGoBiking/Client/src/main/java/main/Main.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Downloads/BikeClient-main/JavaClient/src/main/java/org/example/Map/Sample2.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Downloads/BikeClient-main/JavaClient/src/main/java/org/example/Map/ScrollPane.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Downloads/BikeClient-main/JavaClient/src/main/java/org/example/Map/SelectionAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Downloads/BikeClient-main/JavaClient/src/main/java/org/example/Map/UserGUI.java">
           <value>
             <set />
           </value>

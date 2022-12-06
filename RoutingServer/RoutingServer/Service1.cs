@@ -54,8 +54,6 @@ namespace RoutingServer
                         //SendToQueue(result.routes);
                       
                     }
-                Console.WriteLine("here...");
-
 
                 Console.WriteLine("searching for bike stations...");
 
@@ -86,23 +84,11 @@ namespace RoutingServer
                         Console.WriteLine("walking itinerary.");
                         result.AddRoute(GetPath(startCoordinate, endCoordinate, "foot-walking"));
                         routeSteps = result.routes;
-                    if(routeSteps == null)
-                    {
-                        Console.WriteLine("null au debut");
-                    }
-                    else
-                    {
-                        Console.WriteLine("not null");
-                    }
-                    routeSteps = result.routes;
-                    SendToQueue();
-
-
-                    return result;
+                        SendToQueue();
+                        return result;
                     }
 
                     FeatureItinary ridingData = GetPath(toGeoCoordinate(startStation.position), toGeoCoordinate(endStation.position), "cycling-regular");
-
                     FeatureItinary fullWalkData = GetPath(startCoordinate, endCoordinate, "foot-walking");
                     FeatureItinary waltToStationStart = GetPath(startCoordinate, toGeoCoordinate(startStation.position), "foot-walking");
                     FeatureItinary waltFromStationEnd = GetPath(toGeoCoordinate(endStation.position), endCoordinate, "foot-walking");
@@ -114,13 +100,13 @@ namespace RoutingServer
                         result.AddRoute(waltToStationStart);
                         result.AddRoute(ridingData);
                         result.AddRoute(waltFromStationEnd);
-                    routeSteps = result.routes;
-                    SendToQueue();
-                    return result;
-                }
+                        routeSteps = result.routes;
+                        SendToQueue();
+                        return result;
+                    }
                     else
                     {
-                    result.message = "Bike is useless for this itinerary.";
+                        result.message = "Bike is useless for this itinerary.";
 
                     Console.WriteLine("Bike is useless for this itinerary.");
                         Console.WriteLine("Returning walking itinerary.");
@@ -146,12 +132,11 @@ namespace RoutingServer
             }
 
             public Boolean updateSteps() {
-            if (!updateAvailabilities())
-            {
-                return false;
-            }
-           // Console.WriteLine(routeSteps.Count);
-            return SendToQueue ();
+                if (!updateAvailabilities())
+                  {
+                    return false;
+                }
+                return SendToQueue ();
             }
 
             public bool SendToQueue()
@@ -246,13 +231,10 @@ namespace RoutingServer
                         coordinates.Add(new List<double>(coordinatesNew));
                     }
                 }
-                Console.WriteLine("nooooooooooooo");
 
                 geometryItinary.coordinates = coordinates;
                 featureItinary.geometry = geometryItinary;
                 routeNew.Add(featureItinary);
-                
-                Console.WriteLine("ok error");
 
                 if (routeSteps.Count == 3) {
 
@@ -278,16 +260,12 @@ namespace RoutingServer
            
             if (k == 2)
             {
-                Console.WriteLine("ok2");
 
                 if (routeSteps.Count == 3) { 
                 
-                    Console.WriteLine("ok3");
 
                     instruction = "route 1 finished \n";
                     ITextMessage messageInstruction = session.CreateTextMessage(instruction);
-                    Console.WriteLine(instruction);
-
                     producer.Send(messageInstruction);
                     routeNew.Add(routeSteps[1]);
                     routeNew.Add(routeSteps[2]);
@@ -296,23 +274,17 @@ namespace RoutingServer
                 }
                 else if (routeSteps.Count == 2)
                 {
-                    Console.WriteLine("ok4");
-
                     instruction = "route 2 biking finished \n";
                     ITextMessage messageInstruction = session.CreateTextMessage(instruction);
-                    Console.WriteLine(instruction);
                     producer.Send(messageInstruction);
                     routeNew.Add(routeSteps[1]);
                     routeSteps = routeNew;
                     return true;
-
                 }
                 else if (routeSteps.Count == 1)
                 {
-                    Console.WriteLine("ok4");
 
                     instruction = "Finished!";
-
                     ITextMessage messageInstruction = session.CreateTextMessage(instruction);
                     Console.WriteLine(instruction);
                     producer.Send(messageInstruction);
@@ -322,9 +294,6 @@ namespace RoutingServer
 
             }
             
-            Console.WriteLine("Message sent, check ActiveMQ web interface to confirm.");
-
-            // Don't forget to close your session and connection when finished.
             session.Close();
             connection.Close();
             return false;
@@ -368,7 +337,7 @@ namespace RoutingServer
                 }
                 else
                 {
-                    instruction = "still bike available at depart station !";
+                    instruction = "still bike available at depart station !\n";
                     verif = true;
                 }
                 if (arrive.totalStands.capacity - arrive.totalStands.availabilities.bikes <= 0)
@@ -379,7 +348,7 @@ namespace RoutingServer
                 }
                 else
                 {
-                    instruction = "still place available at arrival station !";
+                    instruction = "still place available at arrival station !\n";
                 }
             }
 

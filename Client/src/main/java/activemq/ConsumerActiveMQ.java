@@ -4,13 +4,22 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static java.lang.System.exit;
+import static java.lang.System.lineSeparator;
 import static java.lang.Thread.sleep;
 
 public class ConsumerActiveMQ {
     private static Connection connect = null;
     private static Session session = null;
     private static MessageProducer sender = null;
+    private static String list = "";
+
+    public static String getList(){
+        return list;
+    }
     public static void start(){
 
         try{
@@ -42,7 +51,7 @@ public class ConsumerActiveMQ {
                                 System.out.println(text);
                                 exit(0);
                             }
-
+                            list = list + '/'+ text;
                             System.out.println(text);
 
                         } else {

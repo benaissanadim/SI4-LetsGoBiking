@@ -1,37 +1,65 @@
 package main;
 
-import activemq.ConsumerActiveMQ;
 import map.*;
 import com.baeldung.soap.ws.client.generated.*;
+import org.jxmapviewer.JXMapViewer;
+import org.jxmapviewer.OSMTileFactoryInfo;
+import org.jxmapviewer.input.CenterMapListener;
+import org.jxmapviewer.input.PanKeyListener;
+import org.jxmapviewer.input.PanMouseInputListener;
+import org.jxmapviewer.input.ZoomMouseWheelListenerCursor;
+import org.jxmapviewer.viewer.*;
+import ui.UserUI;
 
+import javax.swing.*;
+import javax.swing.event.MouseInputListener;
+import java.awt.*;
 import java.util.*;
-
-import static java.lang.Thread.sleep;
 
 public class Main {
 
-    static Scanner sc = new Scanner(System.in);
+    static JXMapViewer mapViewer = new JXMapViewer();
 
     public static void main(String[] args) {
-            ConsumerActiveMQ.start();
+        Main main =new Main();
 
-            Service1 intinary =new Service1();
-            IService1 proxyIntinary= intinary.getBasicHttpBindingIService1();
-            Result result = proxyIntinary.getItinary("marseille port", "marseille centre");
+        // Display the viewer in a JFrame
+        JFrame frame = new JFrame("LETS GO BIKING");
+        UserUI userGUI=new UserUI("UI");
+        frame.add(userGUI.getMyPanel());
+        frame.setLayout(new GridLayout());
 
-          Maps.init(result);
+        frame.add(main.mapViewer);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        frame.setSize(1650,1080);
 
-           boolean verif = true;
-            while(verif){
-                try{
-                    sleep(1300);
-                    System.out.println("Enter DONE for next steps ");
-                    sc.next();
-                    System.out.println();
-                    verif = proxyIntinary.updateSteps();
-                }catch (Exception e){
-                    System.out.println("ok");
-                }
-            }
+
+        // Add interactions
+        HashSet<GeoPosition> set = new HashSet<>();
+        set.add(new GeoPosition( 5.374363,43.301374));
+        set.add(new GeoPosition(43.286971,5.382532));
+        mapViewer.zoomToBestFit(set, 0.8);
+        MouseInputListener mia = new PanMouseInputListener(mapViewer);
+        mapViewer.addMouseListener(mia);
+        mapViewer.addMouseMotionListener(mia);
+        mapViewer.addMouseListener(new CenterMapListener(mapViewer));
+        mapViewer.addMouseWheelListener(new ZoomMouseWheelListenerCursor(mapViewer));
+        mapViewer.addKeyListener(new PanKeyListener(mapViewer));
+
+        // Add a selection painter
+        SelectionAdapter sa = new SelectionAdapter(mapViewer);
+        SelectionPainter sp = new SelectionPainter(sa);
+        mapViewer.addMouseListener(sa);
+        mapViewer.addMouseMotionListener(sa);
+        mapViewer.setOverlayPainter(sp);
+
+        // Create a TileFactoryInfo for OpenStreetMap
+        TileFactoryInfo info = new OSMTileFactoryInfo();
+        DefaultTileFactory tileFactory = new DefaultTileFactory(info);
+        mapViewer.setTileFactory(tileFactory);
+    }
+    public static void updateMap(Result result){
+        Maps.init(mapViewer, result);
     }
 }

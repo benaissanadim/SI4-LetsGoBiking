@@ -29,8 +29,8 @@ import org.jxmapviewer.viewer.WaypointPainter;
  */
 public class Maps
 {
-   public static void init(Result result){
-
+   public static void init(JXMapViewer mapViewer, Result result){
+       System.out.println("here");
        Set<Waypoint> waypointsFoot = new HashSet<>();
        List<GeoPosition> track = new ArrayList<>();
        List<GeoPosition> track1 = new ArrayList<>();
@@ -63,20 +63,6 @@ public class Maps
 
        waypointsFoot.add(new DefaultWaypoint(pos));
 
-       JXMapViewer mapViewer = new JXMapViewer();
-
-       // Display the viewer in a JFrame
-       JFrame frame = new JFrame("JXMapviewer2 Example 2");
-       frame.getContentPane().add(mapViewer);
-       frame.setSize(800, 600);
-       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       frame.setVisible(true);
-
-       // Create a TileFactoryInfo for OpenStreetMap
-       TileFactoryInfo info = new OSMTileFactoryInfo();
-       DefaultTileFactory tileFactory = new DefaultTileFactory(info);
-       mapViewer.setTileFactory(tileFactory);
-
        RoutePainter routePainter1 = new RoutePainter(track1);
        RouterPainterBike routePainter2 = new RouterPainterBike(track2);
        RoutePainter routePainter3 = new RoutePainter(track3);
@@ -100,6 +86,7 @@ public class Maps
 
        CompoundPainter<JXMapViewer> painter = new CompoundPainter<JXMapViewer>(painters);
        mapViewer.setOverlayPainter(painter);
+       System.out.println("nadim ben aissa");
 
    }
 }

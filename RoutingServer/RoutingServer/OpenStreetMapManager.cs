@@ -10,7 +10,7 @@ namespace RoutingServer
     internal class OpenStreetMapManager
     {
 
-        static string apiKey = "5b3ce3597851110001cf624869e78fe2819549ceacb6afe9ff09fcdb";
+        static string apiKey = "5b3ce3597851110001cf62480093c1563f84423d9e85c7f7b122ee0b";
         static string query, url, response;
 
         public static (GeoCoordinate, String) GetPositionCity(string address)
